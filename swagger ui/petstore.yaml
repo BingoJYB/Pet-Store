@@ -1,0 +1,105 @@
+swagger: "2.0"
+info:
+  description: "Get all pets and update pet information."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+host: "petstore"
+basePath: "/v1"
+tags:
+- name: "pet"
+  description: "Everything about your Pets"
+schemes:
+- "https"
+- "http"
+paths:
+  /petstore/v1/get_pets:
+    get:
+      tags:
+      - "pet"
+      summary: "Retrieves all pets"
+      description: ""
+      operationId: "getPet"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Pet"
+      security:
+      - api_key: []
+  /petstore/v1/post_pet:
+    post:
+      tags:
+      - "pet"
+      summary: "Updates a pet in the store with form data"
+      description: ""
+      operationId: "updatePetWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of pet that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the pet"
+        required: false
+        type: "string"
+      - name: "species"
+        in: "formData"
+        description: "Updated species of the pet"
+        required: false
+        type: "string"
+      - name: "gender"
+        in: "formData"
+        description: "Updated gender of the pet"
+        required: false
+        type: "string"
+      - name: "birthday"
+        in: "formData"
+        description: "Updated birthday of the pet"
+        required: false
+        type: "string"
+        format: "date"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Pet"
+        404:
+          description: "not found"
+      security:
+      - api_key: []
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Pet:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "Missy"
+      species:
+        type: "string"
+        example: "dog"
+      gender:
+        type: "string"
+        example: "w"
+      birthday:
+        type: "string"
+        format: "date"
+        example: "2016-12-03"
